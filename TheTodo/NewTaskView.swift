@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct NewTaskView: View {
+    @EnvironmentObject var settings: GameSettings
     @State private var taskTitle = ""
     @State private var taskSubtitle = ""
-    @State private var deadline = Date.now
+    @State private var dateline = Date.now
     @State private var haveDeadline = false
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -22,11 +23,16 @@ struct NewTaskView: View {
                     Text("Have deadline?")
                 }
                 if haveDeadline{
-                    DatePicker("Deadline", selection: $deadline)
+                    DatePicker("Deadline", selection: $dateline)
                 }
             }
             Section("Actions") {
                 Button("Save") {
+                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, isDone: false)
+                    if haveDeadline{
+                        newTodo.deadline = dateline
+                    }
+                    settings.todos.append(newTodo)
                     dismiss()
                 }
                 Button("Cancel", role: .destructive) {
@@ -40,6 +46,7 @@ struct NewTaskView: View {
 struct NewTaskView_Previews: PreviewProvider {
     static var previews: some View {
         NewTaskView()
+            .environmentObject(GameSettings())
         
     }
 }
