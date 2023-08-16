@@ -30,7 +30,7 @@ struct ContentView: View {
                     .bold()
             }
             NavigationLink(destination: TasksView()){
-                Text("Pending tasks")
+                Text("Pending tasks        ")
                     .padding()
                     .background(.yellow)
                     .cornerRadius(50)
