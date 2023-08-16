@@ -28,8 +28,9 @@ struct NewTaskView: View {
             }
             Section("Actions") {
                 Button("Save") {
-                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, isDone: false)
+                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, haveDeadline: false, deadline: Date.now, isDone: false)
                     if haveDeadline{
+                        newTodo.haveDeadline = true
                         newTodo.deadline = dateline
                     }
                     settings.todos.append(newTodo)

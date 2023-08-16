@@ -8,20 +8,28 @@
 import SwiftUI
 class GameSettings: ObservableObject {
     @Published var todos = [
-        Todo(title: "Hey", subtitle: "There's nothing here",isDone: false)
+        Todo(title: "Hey", subtitle: "There's nothing here",haveDeadline: false, deadline: Date.now, isDone: false)
     ]
 }
 struct TasksView: View {
     @EnvironmentObject var settings: GameSettings
     @State private var showNewTodoSheet = false
+    
     var body: some View {
         NavigationStack {
             List($settings.todos, editActions: .all) { $todo in
                 NavigationLink {
-                    Form {
-                        TextField("Enter your todo name", text: $todo.title)
-                        TextField("Enter additional details", text: $todo.subtitle)
-                        Toggle("Is done?", isOn: $todo.isDone)
+                    Form{
+                        Section("Info"){
+                            TextField("Title", text: $todo.title)
+                            TextField("Subtitle", text: $todo.subtitle)
+                            Toggle(isOn: $todo.haveDeadline){
+                                Text("Have deadline?")
+                            }
+                            if todo.haveDeadline{
+                                DatePicker("Deadline", selection: $todo.deadline)
+                            }
+                        }
                     }
                     .navigationTitle("Todo Detail")
                 } label: {
@@ -38,9 +46,11 @@ struct TasksView: View {
                                     .font(.caption)
                                     .foregroundStyle(.gray)
                             }
-                            Text(todo.deadline?.formatted(date:.long, time: .shortened) ?? "")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
+                            if todo.haveDeadline{
+                                Text(todo.deadline.formatted(date:.long, time: .shortened))
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                            }
                         }
                     }
                     
@@ -48,7 +58,7 @@ struct TasksView: View {
             }
             .navigationTitle("Tasks")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
