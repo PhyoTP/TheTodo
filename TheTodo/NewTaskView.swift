@@ -13,6 +13,9 @@ struct NewTaskView: View {
     @State private var taskSubtitle = ""
     @State private var dateline = Date.now
     @State private var haveDeadline = false
+    
+    @State private var linked = "youtube.com"
+    @State private var haveLink = false
     @Environment(\.dismiss) var dismiss
     var body: some View {
         Form{
@@ -20,18 +23,41 @@ struct NewTaskView: View {
                 TextField("Title", text: $taskTitle)
                 TextField("Subtitle", text: $taskSubtitle)
                 Toggle(isOn: $haveDeadline){
-                    Text("Have deadline?")
+                    HStack{
+                        Image(systemName: "calendar.badge.plus")
+                        Text("Have deadline?")
+                    }
                 }
                 if haveDeadline{
-                    DatePicker("Deadline", selection: $dateline)
+                    VStack{
+                        Image(systemName: "calendar.badge.clock")
+                        DatePicker("Deadline", selection: $dateline)
+                    }
+                }
+                Toggle(isOn:$haveLink){
+                    HStack{
+                        Image(systemName: "link.badge.plus")
+                        Text("Have link?")
+                    }
+                }
+                if haveLink{
+                    HStack{
+                        Image(systemName: "link")
+                        TextField("Link", text: $linked)
+                    }
                 }
             }
             Section("Actions") {
                 Button("Save") {
-                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, haveDeadline: false, deadline: Date.now, isDone: false)
+                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, haveDeadline: false, deadline: Date.now, isDone: false,haveLink: false, urlString: "tk.sg/importantlink")
                     if haveDeadline{
                         newTodo.haveDeadline = true
                         newTodo.deadline = dateline
+                    }
+                    if haveLink{
+                        newTodo.haveLink = true
+                        newTodo.urlString = linked
+                        
                     }
                     settings.todos.append(newTodo)
                     dismiss()

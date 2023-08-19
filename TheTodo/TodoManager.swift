@@ -7,10 +7,11 @@
 
 import Foundation
 import SwiftUI
-
+var linker = URL(string: "")!
 class TodoManager: ObservableObject {
     @Published var todos: [Todo] = [
-        Todo(title: "Hey", subtitle: "There's nothing here",haveDeadline: false, deadline: Date.now, isDone: false)
+        Todo(title: "Hey", subtitle: "There's nothing here",haveDeadline: false, deadline: Date.now, isDone: true, haveLink: true, urlString: "tk.sg/bbcs"),
+        Todo(title: "Tap + to make a new task", subtitle: "at the top right", haveDeadline: true, deadline: Date.now, isDone: false, haveLink: false, urlString: "tk.sg/importantlink")
     ] {
         didSet {
             save()

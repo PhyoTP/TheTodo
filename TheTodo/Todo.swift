@@ -14,4 +14,10 @@ struct Todo: Identifiable, Codable{
     var haveDeadline: Bool
     var deadline: Date
     var isDone: Bool
+    var haveLink: Bool
+    var urlString: String
+    var link: URL? {
+            return URL(string: urlString)
+        }
 }
+

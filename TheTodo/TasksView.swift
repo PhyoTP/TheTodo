@@ -29,6 +29,12 @@ struct TasksView: View {
                             if todo.haveDeadline{
                                 DatePicker("Deadline", selection: $todo.deadline)
                             }
+                            Toggle(isOn: $todo.haveLink){
+                                Text("Have link?")
+                            }
+                            if todo.haveLink{
+                                TextField("Link", text: $todo.urlString)
+                            }
                         }
                     }
                     .navigationTitle("Todo Detail")
@@ -50,6 +56,16 @@ struct TasksView: View {
                                 Text(todo.deadline.formatted(date:.long, time: .shortened))
                                     .font(.caption)
                                     .foregroundStyle(.gray)
+                            }
+                            if todo.haveLink{
+                                if let validURL = todo.link {
+                                    Link(todo.urlString, destination: validURL)
+                                        .font(.caption)
+                                } else {
+                                    
+                                }
+
+                                
                             }
                         }
                     }
