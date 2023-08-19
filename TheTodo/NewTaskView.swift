@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewTaskView: View {
-    @EnvironmentObject var settings: GameSettings
+    @EnvironmentObject var settings: TodoManager
     @State private var taskTitle = ""
     @State private var taskSubtitle = ""
     @State private var dateline = Date.now
@@ -28,8 +28,9 @@ struct NewTaskView: View {
             }
             Section("Actions") {
                 Button("Save") {
-                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, isDone: false)
+                    var newTodo = Todo(title: taskTitle, subtitle: taskSubtitle, haveDeadline: false, deadline: Date.now, isDone: false)
                     if haveDeadline{
+                        newTodo.haveDeadline = true
                         newTodo.deadline = dateline
                     }
                     settings.todos.append(newTodo)
@@ -46,7 +47,7 @@ struct NewTaskView: View {
 struct NewTaskView_Previews: PreviewProvider {
     static var previews: some View {
         NewTaskView()
-            .environmentObject(GameSettings())
+            .environmentObject(TodoManager())
         
     }
 }

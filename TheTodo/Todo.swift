@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct Todo: Identifiable{
+struct Todo: Identifiable, Codable{
     var id = UUID()
     var title: String
     var subtitle: String
-    var deadline: Date?
+    var haveDeadline: Bool
+    var deadline: Date
     var isDone: Bool
 }
