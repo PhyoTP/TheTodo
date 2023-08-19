@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-class GameSettings: ObservableObject {
+/*class GameSettings: ObservableObject {
     @Published var todos = [
         Todo(title: "Hey", subtitle: "There's nothing here",haveDeadline: false, deadline: Date.now, isDone: false)
     ]
-}
+}*/
 struct TasksView: View {
-    @EnvironmentObject var settings: GameSettings
+    @EnvironmentObject var settings: TodoManager
     @State private var showNewTodoSheet = false
     
     var body: some View {
@@ -80,6 +80,6 @@ struct TasksView: View {
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
         TasksView()
-            .environmentObject(GameSettings())
+            .environmentObject(TodoManager())
     }
 }
