@@ -94,13 +94,11 @@
 		D9BDB16A2A8A3CFB00BFE5C4 /* TheTodo */ = {
 			isa = PBXGroup;
 			children = (
-				D9BDB16B2A8A3CFB00BFE5C4 /* TheTodoApp.swift */,
-				D9BDB16D2A8A3CFB00BFE5C4 /* ContentView.swift */,
-				D9BDB1952A8A3F3300BFE5C4 /* NewTaskView.swift */,
-				D9BDB1992A8A433F00BFE5C4 /* TasksView.swift */,
-				D90785752A8C931F005709E3 /* Todo.swift */,
-				D90785772A905F12005709E3 /* TodoManager.swift */,
+				D9C5DD252A98D15900BBA4D4 /* Model */,
+				D9C5DD262A98D1A400BBA4D4 /* View */,
+				D9C5DD272A98D1DE00BBA4D4 /* ViewModel */,
 				D9BDB16F2A8A3CFD00BFE5C4 /* Assets.xcassets */,
+				D9BDB16B2A8A3CFB00BFE5C4 /* TheTodoApp.swift */,
 				D9BDB1712A8A3CFD00BFE5C4 /* Preview Content */,
 			);
 			path = TheTodo;
@@ -112,6 +110,32 @@
 				D9BDB1722A8A3CFD00BFE5C4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D9C5DD252A98D15900BBA4D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D90785752A8C931F005709E3 /* Todo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D9C5DD262A98D1A400BBA4D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9BDB16D2A8A3CFB00BFE5C4 /* ContentView.swift */,
+				D9BDB1952A8A3F3300BFE5C4 /* NewTaskView.swift */,
+				D9BDB1992A8A433F00BFE5C4 /* TasksView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D9C5DD272A98D1DE00BBA4D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D90785772A905F12005709E3 /* TodoManager.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
