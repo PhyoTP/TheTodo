@@ -6,11 +6,21 @@
 //
 
 import SwiftUI
-/*class GameSettings: ObservableObject {
- @Published var todos = [
- Todo(title: "Hey", subtitle: "There's nothing here",haveDeadline: false, deadline: Date.now, isDone: false)
- ]
- }*/
+func colorChooser(done:Bool,dateline:Date, haveDateline:Bool) -> Color{
+    if done{
+        return .black
+    }else{
+        if haveDateline{
+            if dateline<Date.now{
+                return .red
+            }else{
+                return .black
+            }
+        }else{
+            return .black
+        }
+    }
+}
 struct TasksView: View {
     @EnvironmentObject var settings: todoManager
     @State private var showNewTodoSheet = false
@@ -25,6 +35,9 @@ struct TasksView: View {
                         NavigationLink {
                             Form{
                                 Section("Info"){
+                                    Toggle(isOn: $todo.isDone){
+                                        Text("Is done?")
+                                    }
                                     TextField("Title", text: $todo.title)
                                     TextField("Subtitle", text: $todo.subtitle)
                                     Toggle(isOn: $todo.haveDeadline){
@@ -51,6 +64,7 @@ struct TasksView: View {
                                 VStack(alignment: .leading) {
                                     Text(todo.title)
                                         .strikethrough(todo.isDone)
+                                        .foregroundColor(colorChooser(done: todo.isDone, dateline: todo.deadline, haveDateline: todo.haveDeadline))
                                     if !todo.subtitle.isEmpty {
                                         Text(todo.subtitle)
                                             .font(.caption)
