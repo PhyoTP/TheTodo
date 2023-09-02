@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 var linker = URL(string: "")!
-class TodoManager: ObservableObject {
+class todoManager: ObservableObject {
     @Published var todos: [Todo] = [
         Todo(title: "Hey", subtitle: "There's nothing here",haveDeadline: false, deadline: Date.now, isDone: true, haveLink: true, urlString: "tk.sg/bbcs"),
         Todo(title: "Tap + to make a new task", subtitle: "at the top right", haveDeadline: true, deadline: Date.now, isDone: false, haveLink: false, urlString: "tk.sg/importantlink")
@@ -17,7 +17,7 @@ class TodoManager: ObservableObject {
             save()
         }
     }
-        
+    
     init() {
         load()
     }
@@ -35,13 +35,15 @@ class TodoManager: ObservableObject {
         let encodedTodos = try? propertyListEncoder.encode(todos)
         try? encodedTodos?.write(to: archiveURL, options: .noFileProtection)
     }
-    
+    func loadSampleData() {
+        todos = Todo.sampleTodos
+    }
     func load() {
         let archiveURL = getArchiveURL()
         let propertyListDecoder = PropertyListDecoder()
-                
+        
         if let retrievedTodoData = try? Data(contentsOf: archiveURL),
-            let todosDecoded = try? propertyListDecoder.decode([Todo].self, from: retrievedTodoData) {
+           let todosDecoded = try? propertyListDecoder.decode([Todo].self, from: retrievedTodoData) {
             todos = todosDecoded
         }
     }
